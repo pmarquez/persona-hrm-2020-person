@@ -1,4 +1,5 @@
 # Getting Started
+Learn this markup.
 
 ### Reference Documentation
 For further reference, please consider the following sections:
