@@ -9,11 +9,20 @@ import java.util.List;
 @Service
 public class PersonsServiceImpl implements PersonsService {
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<PersonBaseRec> retrievePersons ( ) {
         return null;
     }
 
+    /**
+     *
+     * @param personCode
+     * @return
+     */
     @Override
     public PersonRec retrievePerson ( int personCode ) {
         return null;
