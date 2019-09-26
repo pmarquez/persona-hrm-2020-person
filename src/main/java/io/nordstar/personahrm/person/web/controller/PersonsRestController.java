@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //   Third Party Libraries Imports
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +44,9 @@ import io.nordstar.personahrm.person.web.services.PersonsService;
 @RestController
 public class PersonsRestController {
 
-//   Controller Constants
+    private static final Logger logger = LogManager.getLogger ( PersonsRestController.class );
+
+    //   Controller Constants
     private static final int EMPTY_PERSON_LIST = 0;
     private static final int EMPTY_PERSON_REC  = 0;
     
