@@ -84,6 +84,7 @@ public class PersonsRestController {
 
         if ( l.size ( ) > PersonsRestController.EMPTY_PERSON_LIST ) {
             response = new ResponseEntity ( l, HttpStatus.OK );
+            logger.info ( "personList.response - Status OK" );
         } else {
             response = new ResponseEntity ( l, HttpStatus.NOT_FOUND );
         }
