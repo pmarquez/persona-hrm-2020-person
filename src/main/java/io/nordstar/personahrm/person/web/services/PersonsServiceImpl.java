@@ -10,6 +10,11 @@ import java.util.List;
 @Service
 public class PersonsServiceImpl implements PersonsService {
 
+    @Override
+    public void createPerson ( PersonRec personData ) {
+
+    }
+
     /**
      *
      * @return
@@ -21,12 +26,36 @@ public class PersonsServiceImpl implements PersonsService {
 
     /**
      *
+     * @return
+     */
+    @Override
+    public List<PersonBaseRec> searchPersons ( ) {
+        return new ArrayList<PersonBaseRec> ( );
+    }
+
+    /**
+     *
      * @param personCode
      * @return
      */
     @Override
-    public PersonRec retrievePerson ( int personCode ) {
+    public PersonRec retrievePersonByCode ( int personCode ) {
         return null;
+    }
+
+    @Override
+    public PersonRec updatePerson ( int personCode, PersonRec personData ) {
+        return null;
+    }
+
+    /**
+     *
+     * @param personCode
+     * @return
+     */
+    @Override
+    public void deletePerson ( int personCode ) {
+
     }
 
 }

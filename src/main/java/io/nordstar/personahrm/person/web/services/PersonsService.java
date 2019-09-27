@@ -7,8 +7,17 @@ import java.util.List;
 
 public interface PersonsService {
 
+//    PERSON CRUD
+    public void createPerson ( PersonRec personData );
+
     public List<PersonBaseRec> retrievePersons ( );
 
-    public PersonRec retrievePerson ( int personCode );
+    public List<PersonBaseRec> searchPersons ( );
+
+    public PersonRec retrievePersonByCode ( int personCode );
+
+    public PersonRec updatePerson ( int personCode, PersonRec personData );
+
+    public void deletePerson ( int personCode );
 
 }
