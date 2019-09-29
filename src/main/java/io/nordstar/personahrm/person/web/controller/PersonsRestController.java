@@ -3,6 +3,7 @@ package io.nordstar.personahrm.person.web.controller;
 
 
 //   Standard Libraries Imports
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,14 @@ public class PersonsRestController {
         this.personsService = personsService;
     }
 
+    @PostMapping ( value = "/personsAPI/1.0/persons/person" )
+    public ResponseEntity createPerson ( @RequestBody PersonRec personData ) {
+
+        this.personsService.createPerson ( personData );
+
+        return new ResponseEntity ( HttpStatus.CREATED );
+    }
+
     /**
      * Retrieves a list of persons from storage.
      * @return ResponseRec<List<PersonBaseRec>>
@@ -100,7 +109,7 @@ public class PersonsRestController {
     @GetMapping ( value = "/personsAPI/1.0/persons/persons/{personCode}" )
     public ResponseEntity<PersonRec> retrievePerson ( @PathVariable int personCode ) {
 
-        PersonRec r = this.personsService.retrievePerson ( personCode );
+        PersonRec r = this.personsService.retrievePersonByCode ( personCode );
 
         ResponseEntity response = null;
 
@@ -125,7 +134,7 @@ public class PersonsRestController {
     @GetMapping ( value = "/personsAPI/1.0/persons/exists/{personCode}" )
     public ResponseEntity personExists ( @PathVariable int personCode ) {
 
-        PersonRec r = this.personsService.retrievePerson ( personCode );
+        PersonRec r = this.personsService.retrievePersonByCode ( personCode );
 
         ResponseEntity response = null;
 
@@ -139,5 +148,17 @@ public class PersonsRestController {
         
         return response;
     }
+
+/*
+    public List<PersonBaseRec> retrievePersons ( );
+
+    public List<PersonBaseRec> searchPersons ( );
+
+    public PersonRec retrievePersonByCode ( int personCode );
+
+    public PersonRec updatePerson ( int personCode, PersonRec personData );
+
+    public void deletePerson ( int personCode );
+*/
 
 }
