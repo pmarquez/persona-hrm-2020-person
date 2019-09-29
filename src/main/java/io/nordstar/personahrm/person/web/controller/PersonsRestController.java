@@ -107,7 +107,7 @@ public class PersonsRestController {
      * @return ResponseRec<PersonRec>
      */
     @GetMapping ( value = "/personsAPI/1.0/persons/persons/{personCode}" )
-    public ResponseEntity<PersonRec> retrievePerson ( @PathVariable int personCode ) {
+    public ResponseEntity<PersonRec> retrievePersonByCode ( @PathVariable int personCode ) {
 
         PersonRec r = this.personsService.retrievePersonByCode ( personCode );
 
@@ -122,6 +122,34 @@ public class PersonsRestController {
         }
 
         return response;
+
+    }
+
+    /**
+     *
+     * @param personCode
+     * @param personData
+     * @return
+     */
+    @PutMapping ( value = "/personsAPI/1.0/persons/persons/{personCode}" )
+    public ResponseEntity updatePerson ( @PathVariable int personCode, @RequestBody PersonRec personData ) {
+
+        this.personsService.updatePerson ( personCode, personData );
+
+        return new ResponseEntity ( HttpStatus.NO_CONTENT );
+
+    }
+
+    /**
+     *
+     * @param personCode
+     */
+    @DeleteMapping ( value = "/personsAPI/1.0/persons/persons/{personCode}" )
+    public ResponseEntity deletePerson ( int personCode ) {
+
+        this.personsService.deletePerson ( personCode );
+
+        return new ResponseEntity ( HttpStatus.NO_CONTENT );
 
     }
 
@@ -149,16 +177,5 @@ public class PersonsRestController {
         return response;
     }
 
-/*
-    public List<PersonBaseRec> retrievePersons ( );
-
-    public List<PersonBaseRec> searchPersons ( );
-
-    public PersonRec retrievePersonByCode ( int personCode );
-
-    public PersonRec updatePerson ( int personCode, PersonRec personData );
-
-    public void deletePerson ( int personCode );
-*/
 
 }
