@@ -56,7 +56,7 @@ public class  PersonBaseRec {
     protected int           genderCode;
     protected String        gender;
     protected String        socialSecurityNumber;
-    protected LocalDate     birthDate;
-    protected LocalDateTime creationDate;
+    protected String        birthDate;
+    protected String        creationDate;
     protected Boolean       active;
 }
