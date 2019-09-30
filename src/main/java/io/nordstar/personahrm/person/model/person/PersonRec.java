@@ -45,4 +45,36 @@ public class PersonRec extends PersonBaseRec {
 
     private List<AcademiaBaseRec> academia;
 
+    public PersonRec ( int personCode,
+                       int idTypeCode,
+                       String idType,
+                       String idNumber,
+                       String firstName,
+                       String middleName,
+                       String lastName,
+                       int genderCode,
+                       String gender,
+                       String socialSecurityNumber,
+                       String birthDate,
+                       String creationDate,
+                       Boolean active,
+                       List<AcademiaBaseRec> academia ) {
+
+        super ( personCode,
+                idTypeCode,
+                idType,
+                idNumber,
+                firstName,
+                middleName,
+                lastName,
+                genderCode,
+                gender,
+                socialSecurityNumber,
+                birthDate,
+                creationDate,
+                active );
+
+        this.academia = academia;
+
+    }
 }
