@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.net.ConnectException;
 import java.util.List;
 
 /**
@@ -121,8 +122,6 @@ public class PersonRepositoryImpl implements PersonsRepository {
     @Override
     public List<PersonBaseRec> retrievePersons ( ) {
 
-        System.out.println ( "SQLQuery: " + RETRIEVE_PERSONS_SQL_QUERY );
-
         try {
             return personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
                     ( rs, rowNum ) -> new PersonBaseRec (   rs.getInt     ( "personCode" ),
@@ -142,10 +141,13 @@ public class PersonRepositoryImpl implements PersonsRepository {
             );
 
         } catch ( InvalidResultSetAccessException irsae ) {
-            System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
+            System.out.println ( "PEPE InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
 
         } catch ( DataAccessException dae ) {
-            System.out.println ( "DataAccessException: " + dae.getStackTrace ( ) );
+            System.out.println ( "PEPE DataAccessException: " + dae.getStackTrace ( ) );
+
+        } catch ( Exception e ) {
+            System.out.println ( "PEPE Exception: " + e.getStackTrace ( ).toString () );
 
         }
 
