@@ -35,10 +35,10 @@ import java.util.List;
 public class PersonRepositoryImpl implements PersonsRepository {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate personJdbcTemplate;
 
     @Autowired
-    private NamedParameterJdbcTemplate npJdbcTemplate;
+    private NamedParameterJdbcTemplate personNpJdbcTemplate;
 
 
     //   Companies CRUD
@@ -81,7 +81,9 @@ public class PersonRepositoryImpl implements PersonsRepository {
                                                                 "LEFT OUTER JOIN hrm_pers_idtypeentity ON hrm_pers_personentity.idTypeCode = hrm_pers_idtypeentity.idTypeCode "     +
                                                                 "LEFT OUTER JOIN hrm_pers_genderentity ON hrm_pers_personentity.genderCode = hrm_pers_genderentity.genderCode "     +
 
-                                                                "ORDER BY hrm_pers_personentity.LAST_NAME, hrm_pers_personentity.FIRST_NAME, hrm_pers_personentity-MIDDLE_NAME";
+                                                                "ORDER BY hrm_pers_personentity.lastName, "                                                                         +
+                                                                         "hrm_pers_personentity.firstName, "                                                                        +
+                                                                         "hrm_pers_personentity.middleName";
 
 
     @Override
@@ -94,7 +96,7 @@ public class PersonRepositoryImpl implements PersonsRepository {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
         mapSqlParameterSource.addValue ( "personCode", personCode );
 
-        return npJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
+        return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
                 mapSqlParameterSource,
                 ( rs, rowNum ) -> new PersonRec (     rs.getInt        ( "personCode"             ),
                                                       rs.getInt        ( "idTypeCode"             ),
@@ -106,9 +108,9 @@ public class PersonRepositoryImpl implements PersonsRepository {
                                                       rs.getInt        ( "genderCode"             ),
                                                       rs.getString     ( "GENDER_NAME"            ),
                                                       rs.getString     ( "SOCIAL_SECURITY_NUMBER" ),
-                                                      rs.getString     ( "BIRTH_DATE"             ),
+                                                      rs.getString     ( "birthDate"              ),
                                                       "",
-                                                      rs.getBoolean    ( "ACTIVE"                 ),
+                                                      rs.getBoolean    ( "active"                 ),
                                                       null
                                                 )
                                              );
@@ -116,7 +118,10 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
     @Override
     public List<PersonBaseRec> retrievePersons ( ) {
-        return jdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
+
+        System.out.println ( "SQLQuery: " + RETRIEVE_PERSONS_SQL_QUERY );
+
+        return personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
                 ( rs, rowNum ) -> new PersonBaseRec ( rs.getInt        ( "personCode"             ),
                                                       rs.getInt        ( "idTypeCode"             ),
                                                       rs.getString     ( "ID_TYPE_NAME"           ),
@@ -127,9 +132,9 @@ public class PersonRepositoryImpl implements PersonsRepository {
                                                       rs.getInt        ( "genderCode"             ),
                                                       rs.getString     ( "GENDER_NAME"            ),
                                                       rs.getString     ( "SOCIAL_SECURITY_NUMBER" ),
-                                                      rs.getString     ( "BIRTH_DATE"             ),
+                                                      rs.getString     ( "birthDate"              ),
                                                       "",
-                                                      rs.getBoolean    ( "ACTIVE"                 )
+                                                      rs.getBoolean    ( "active"                 )
                 )
         );
     }
