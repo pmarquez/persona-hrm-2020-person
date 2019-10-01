@@ -3,6 +3,8 @@ package io.nordstar.personahrm.person.dao;
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
 import io.nordstar.personahrm.person.model.person.PersonRec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.InvalidResultSetAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -121,22 +123,34 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
         System.out.println ( "SQLQuery: " + RETRIEVE_PERSONS_SQL_QUERY );
 
-        return personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
-                ( rs, rowNum ) -> new PersonBaseRec ( rs.getInt        ( "personCode"             ),
-                                                      rs.getInt        ( "idTypeCode"             ),
-                                                      rs.getString     ( "ID_TYPE_NAME"           ),
-                                                      rs.getString     ( "ID_NUMBER"              ),
-                                                      rs.getString     ( "FIRST_NAME"             ),
-                                                      rs.getString     ( "MIDDLE_NAME"            ),
-                                                      rs.getString     ( "LAST_NAME"              ),
-                                                      rs.getInt        ( "genderCode"             ),
-                                                      rs.getString     ( "GENDER_NAME"            ),
-                                                      rs.getString     ( "SOCIAL_SECURITY_NUMBER" ),
-                                                      rs.getString     ( "birthDate"              ),
-                                                      "",
-                                                      rs.getBoolean    ( "active"                 )
-                )
-        );
+        try {
+            return personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
+                    ( rs, rowNum ) -> new PersonBaseRec (   rs.getInt     ( "personCode" ),
+                                                            rs.getInt     ( "idTypeCode" ),
+                                                            rs.getString  ( "ID_TYPE_NAME" ),
+                                                            rs.getString  ( "ID_NUMBER" ),
+                                                            rs.getString  ( "FIRST_NAME" ),
+                                                            rs.getString  ( "MIDDLE_NAME" ),
+                                                            rs.getString  ( "LAST_NAME" ),
+                                                            rs.getInt     ( "genderCode" ),
+                                                            rs.getString  ( "GENDER_NAME" ),
+                                                            rs.getString  ( "SOCIAL_SECURITY_NUMBER" ),
+                                                            rs.getString  ( "birthDate" ),
+                                                            "",
+                                                            rs.getBoolean ( "active" )
+                    )
+            );
+
+        } catch ( InvalidResultSetAccessException irsae ) {
+            System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
+
+        } catch ( DataAccessException dae ) {
+            System.out.println ( "DataAccessException: " + dae.getStackTrace ( ) );
+
+        }
+
+        return null;
+
     }
 
     @Override

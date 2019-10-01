@@ -44,7 +44,6 @@ import java.time.format.DateTimeParseException;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class  PersonBaseRec {
     protected int           personCode;
     protected int           idTypeCode;
@@ -59,4 +58,33 @@ public class  PersonBaseRec {
     protected String        birthDate;
     protected String        creationDate;
     protected Boolean       active;
+
+    public PersonBaseRec ( int personCode,
+                           int idTypeCode,
+                           String idType,
+                           String idNumber,
+                           String firstName,
+                           String middleName,
+                           String lastName,
+                           int genderCode,
+                           String gender,
+                           String socialSecurityNumber,
+                           String birthDate,
+                           String creationDate,
+                           Boolean active ) {
+
+        this.personCode = personCode;
+        this.idTypeCode = idTypeCode;
+        this.idType = idType;
+        this.idNumber = idNumber;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.genderCode = genderCode;
+        this.gender = gender;
+        this.socialSecurityNumber = socialSecurityNumber;
+        this.birthDate = birthDate;
+        this.creationDate = creationDate;
+        this.active = active;
+    }
 }

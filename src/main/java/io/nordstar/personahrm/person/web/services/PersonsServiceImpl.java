@@ -29,7 +29,7 @@ public class PersonsServiceImpl implements PersonsService {
 
         List<PersonBaseRec> persons = personsDAO.retrievePersons ( );
 
-        return new ArrayList<PersonBaseRec> ( );
+        return persons;
 
     }
 
