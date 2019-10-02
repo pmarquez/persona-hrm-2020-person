@@ -31,7 +31,7 @@ public interface PersonsRepository {
     //   Persons CRUD
     public void createPerson ( PersonRec company );
 
-    public PersonRec retrievePersonsByCode ( int personCode );
+    public PersonRec retrievePersonByCode ( int personCode );
 
     public List<PersonBaseRec> retrievePersons ( );
 

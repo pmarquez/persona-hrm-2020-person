@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,28 +96,44 @@ public class PersonRepositoryImpl implements PersonsRepository {
     }
 
     @Override
-    public PersonRec retrievePersonsByCode ( int personCode ) {
+    public PersonRec retrievePersonByCode ( int personCode ) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
         mapSqlParameterSource.addValue ( "personCode", personCode );
 
-        return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
-                mapSqlParameterSource,
-                ( rs, rowNum ) -> new PersonRec (     rs.getInt        ( "personCode"             ),
-                                                      rs.getInt        ( "idTypeCode"             ),
-                                                      rs.getString     ( "ID_TYPE_NAME"           ),
-                                                      rs.getString     ( "ID_NUMBER"              ),
-                                                      rs.getString     ( "FIRST_NAME"             ),
-                                                      rs.getString     ( "MIDDLE_NAME"            ),
-                                                      rs.getString     ( "LAST_NAME"              ),
-                                                      rs.getInt        ( "genderCode"             ),
-                                                      rs.getString     ( "GENDER_NAME"            ),
-                                                      rs.getString     ( "SOCIAL_SECURITY_NUMBER" ),
-                                                      rs.getString     ( "birthDate"              ),
-                                                      "",
-                                                      rs.getBoolean    ( "active"                 ),
-                                                      null
-                                                )
-                                             );
+        try {
+
+            return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
+                    mapSqlParameterSource,
+                    ( rs, rowNum ) -> new PersonRec (     rs.getInt        ( "personCode"             ),
+                                                          rs.getInt        ( "idTypeCode"             ),
+                                                          rs.getString     ( "ID_TYPE_NAME"           ),
+                                                          rs.getString     ( "ID_NUMBER"              ),
+                                                          rs.getString     ( "FIRST_NAME"             ),
+                                                          rs.getString     ( "MIDDLE_NAME"            ),
+                                                          rs.getString     ( "LAST_NAME"              ),
+                                                          rs.getInt        ( "genderCode"             ),
+                                                          rs.getString     ( "GENDER_NAME"            ),
+                                                          rs.getString     ( "SOCIAL_SECURITY_NUMBER" ),
+                                                          rs.getString     ( "birthDate"              ),
+                                                          "",
+                                                          rs.getBoolean    ( "active"                 ),
+                                                          null
+                                                    )
+                                                 );
+
+        } catch ( InvalidResultSetAccessException irsae ) {
+            System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
+
+        } catch ( DataAccessException dae ) {
+            System.out.println ( "DataAccessException: " + dae.getStackTrace ( ) );
+
+        } catch ( Exception e ) {
+            System.out.println ( "Exception: " + e.getStackTrace ( ).toString () );
+
+        }
+
+        return new PersonRec ( );
+
     }
 
     @Override
@@ -141,17 +158,17 @@ public class PersonRepositoryImpl implements PersonsRepository {
             );
 
         } catch ( InvalidResultSetAccessException irsae ) {
-            System.out.println ( "PEPE InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
+            System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
 
         } catch ( DataAccessException dae ) {
-            System.out.println ( "PEPE DataAccessException: " + dae.getStackTrace ( ) );
+            System.out.println ( "DataAccessException: " + dae.getStackTrace ( ) );
 
         } catch ( Exception e ) {
-            System.out.println ( "PEPE Exception: " + e.getStackTrace ( ).toString () );
+            System.out.println ( "Exception: " + e.getStackTrace ( ).toString ( ) );
 
         }
 
-        return null;
+        return new ArrayList<> ( );
 
     }
 

@@ -49,7 +49,10 @@ public class PersonsServiceImpl implements PersonsService {
      */
     @Override
     public PersonRec retrievePersonByCode ( int personCode ) {
-        return null;
+
+        PersonRec person = personsDAO.retrievePersonByCode ( personCode );
+
+        return person;
     }
 
     @Override
