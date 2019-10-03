@@ -46,48 +46,48 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
 
     //   Companies CRUD
-    private static final String RETRIEVE_PERSON_BY_CODE_SQL_QUERY = "SELECT hrm_pers_personentity.personCode, "                                                                         +
-                                                                           "hrm_pers_personentity.idTypeCode, "                                                                         +
-                                                                           "IFNULL(hrm_pers_idtypeentity.idTypeName,'') AS ID_TYPE_NAME, "                                              +
-                                                                           "IFNULL(hrm_pers_personentity.idNumber,'') AS ID_NUMBER, "                                                   +
-                                                                           "IFNULL(hrm_pers_personentity.firstName,'') AS FIRST_NAME, "                                                 +
-                                                                           "IFNULL(hrm_pers_personentity.middleName,'') AS MIDDLE_NAME, "                                               +
-                                                                           "IFNULL(hrm_pers_personentity.lastName,'') AS LAST_NAME, "                                                   +
-                                                                           "hrm_pers_personentity.genderCode, "                                                                         +
-                                                                           "IFNULL(hrm_pers_genderentity.genderName,'') AS GENDER_NAME, "                                               +
-                                                                           "IFNULL(hrm_pers_personentity.socialSecurityNumber,'') AS SOCIAL_SECURITY_NUMBER, "                          +
-                                                                           "hrm_pers_personentity.birthDate, "                                                                          +
-                                                                           "hrm_pers_personentity.active "                                                                              +
+    private static final String RETRIEVE_PERSON_BY_CODE_SQL_QUERY = "SELECT hrm-pers-personentity.personCode, "                                                                         +
+                                                                           "hrm-pers-personentity.idTypeCode, "                                                                         +
+                                                                           "IFNULL(hrm-pers-idtypeentity.idTypeName,'') AS ID_TYPE_NAME, "                                              +
+                                                                           "IFNULL(hrm-pers-personentity.idNumber,'') AS ID_NUMBER, "                                                   +
+                                                                           "IFNULL(hrm-pers-personentity.firstName,'') AS FIRST_NAME, "                                                 +
+                                                                           "IFNULL(hrm-pers-personentity.middleName,'') AS MIDDLE_NAME, "                                               +
+                                                                           "IFNULL(hrm-pers-personentity.lastName,'') AS LAST_NAME, "                                                   +
+                                                                           "hrm-pers-personentity.genderCode, "                                                                         +
+                                                                           "IFNULL(hrm-pers-genderentity.genderName,'') AS GENDER_NAME, "                                               +
+                                                                           "IFNULL(hrm-pers-personentity.socialSecurityNumber,'') AS SOCIAL_SECURITY_NUMBER, "                          +
+                                                                           "hrm-pers-personentity.birthDate, "                                                                          +
+                                                                           "hrm-pers-personentity.active "                                                                              +
 
-                                                                    "FROM hrm_pers_personentity "                                                                                       +
+                                                                    "FROM hrm-pers-personentity "                                                                                       +
 
-                                                                    "LEFT OUTER JOIN hrm_pers_idtypeentity ON hrm_pers_personentity.idTypeCode = hrm_pers_idtypeentity.idTypeCode "     +
-                                                                    "LEFT OUTER JOIN hrm_pers_genderentity ON hrm_pers_personentity.genderCode = hrm_pers_genderentity.genderCode "     +
+                                                                    "LEFT OUTER JOIN hrm-pers-idtypeentity ON hrm-pers-personentity.idTypeCode = hrm-pers-idtypeentity.idTypeCode "     +
+                                                                    "LEFT OUTER JOIN hrm-pers-genderentity ON hrm-pers-personentity.genderCode = hrm-pers-genderentity.genderCode "     +
 
-                                                                    "WHERE hrm_pers_personentity.personCode = :personCode";
+                                                                    "WHERE hrm-pers-personentity.personCode = :personCode";
 
 
-    private static final String RETRIEVE_PERSONS_SQL_QUERY =    "SELECT hrm_pers_personentity.personCode, "                                                                         +
-                                                                       "hrm_pers_personentity.idTypeCode, "                                                                         +
-                                                                       "IFNULL(hrm_pers_idtypeentity.idTypeName,'') AS ID_TYPE_NAME, "                                              +
-                                                                       "IFNULL(hrm_pers_personentity.idNumber,'') AS ID_NUMBER, "                                                   +
-                                                                       "IFNULL(hrm_pers_personentity.firstName,'') AS FIRST_NAME, "                                                 +
-                                                                       "IFNULL(hrm_pers_personentity.middleName,'') AS MIDDLE_NAME, "                                               +
-                                                                       "IFNULL(hrm_pers_personentity.lastName,'') AS LAST_NAME, "                                                   +
-                                                                       "hrm_pers_personentity.genderCode, "                                                                         +
-                                                                       "IFNULL(hrm_pers_genderentity.genderName,'') AS GENDER_NAME, "                                               +
-                                                                       "IFNULL(hrm_pers_personentity.socialSecurityNumber,'') AS SOCIAL_SECURITY_NUMBER, "                          +
-                                                                       "hrm_pers_personentity.birthDate, "                                                                          +
-                                                                       "hrm_pers_personentity.active "                                                                              +
+    private static final String RETRIEVE_PERSONS_SQL_QUERY =    "SELECT hrm-pers-personentity.personCode, "                                                                         +
+                                                                       "hrm-pers-personentity.idTypeCode, "                                                                         +
+                                                                       "IFNULL(hrm-pers-idtypeentity.idTypeName,'') AS ID_TYPE_NAME, "                                              +
+                                                                       "IFNULL(hrm-pers-personentity.idNumber,'') AS ID_NUMBER, "                                                   +
+                                                                       "IFNULL(hrm-pers-personentity.firstName,'') AS FIRST_NAME, "                                                 +
+                                                                       "IFNULL(hrm-pers-personentity.middleName,'') AS MIDDLE_NAME, "                                               +
+                                                                       "IFNULL(hrm-pers-personentity.lastName,'') AS LAST_NAME, "                                                   +
+                                                                       "hrm-pers-personentity.genderCode, "                                                                         +
+                                                                       "IFNULL(hrm-pers-genderentity.genderName,'') AS GENDER_NAME, "                                               +
+                                                                       "IFNULL(hrm-pers-personentity.socialSecurityNumber,'') AS SOCIAL_SECURITY_NUMBER, "                          +
+                                                                       "hrm-pers-personentity.birthDate, "                                                                          +
+                                                                       "hrm-pers-personentity.active "                                                                              +
 
-                                                                "FROM hrm_pers_personentity "                                                                                       +
+                                                                "FROM hrm-pers-personentity "                                                                                       +
 
-                                                                "LEFT OUTER JOIN hrm_pers_idtypeentity ON hrm_pers_personentity.idTypeCode = hrm_pers_idtypeentity.idTypeCode "     +
-                                                                "LEFT OUTER JOIN hrm_pers_genderentity ON hrm_pers_personentity.genderCode = hrm_pers_genderentity.genderCode "     +
+                                                                "LEFT OUTER JOIN hrm-pers-idtypeentity ON hrm-pers-personentity.idTypeCode = hrm-pers-idtypeentity.idTypeCode "     +
+                                                                "LEFT OUTER JOIN hrm-pers-genderentity ON hrm-pers-personentity.genderCode = hrm-pers-genderentity.genderCode "     +
 
-                                                                "ORDER BY hrm_pers_personentity.lastName, "                                                                         +
-                                                                         "hrm_pers_personentity.firstName, "                                                                        +
-                                                                         "hrm_pers_personentity.middleName";
+                                                                "ORDER BY hrm-pers-personentity.lastName, "                                                                         +
+                                                                         "hrm-pers-personentity.firstName, "                                                                        +
+                                                                         "hrm-pers-personentity.middleName";
 
 
     @Override
