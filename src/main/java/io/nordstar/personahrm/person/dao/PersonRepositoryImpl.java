@@ -97,6 +97,9 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
     @Override
     public PersonRec retrievePersonByCode ( int personCode ) {
+
+        System.out.println ( "SQLQuery: " + RETRIEVE_PERSON_BY_CODE_SQL_QUERY );
+
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
         mapSqlParameterSource.addValue ( "personCode", personCode );
 
@@ -138,6 +141,8 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
     @Override
     public List<PersonBaseRec> retrievePersons ( ) {
+
+        System.out.println ( "SQLQuery: " + RETRIEVE_PERSONS_SQL_QUERY );
 
         try {
             return personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
