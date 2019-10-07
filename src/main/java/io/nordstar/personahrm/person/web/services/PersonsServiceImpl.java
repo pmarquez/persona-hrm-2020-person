@@ -29,6 +29,8 @@ public class PersonsServiceImpl implements PersonsService {
 
         List<PersonBaseRec> persons = personsDAO.retrievePersons ( );
 
+        System.out.println ( "Persons.size ( ): " + persons.size ( ) );
+
         return persons;
 
     }
