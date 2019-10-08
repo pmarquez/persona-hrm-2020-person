@@ -147,7 +147,8 @@ public class PersonRepositoryImpl implements PersonsRepository {
         List<PersonBaseRec> persons = new ArrayList<> ( );
 
         try {
-            persons = personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
+            persons = personJdbcTemplate.query ( "CALL SP_RETRIEVE_PERSONS()",
+            //persons = personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
                     ( rs, rowNum ) -> new PersonBaseRec (   rs.getInt     ( "personCode"   ),
                                                             rs.getInt     ( "idTypeCode"   ),
                                                             rs.getString  ( "ID_TYPE_NAME" ),
