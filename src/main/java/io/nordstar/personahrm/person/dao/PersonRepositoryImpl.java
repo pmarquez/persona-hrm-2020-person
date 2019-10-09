@@ -105,7 +105,8 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
         try {
 
-            return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
+            return personNpJdbcTemplate.queryForObject ( "CALL SP_RETRIEVE_PERSON( :personCode )",
+            //return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
                     mapSqlParameterSource,
                     ( rs, rowNum ) -> new PersonRec (     rs.getInt        ( "personCode"             ),
                                                           rs.getInt        ( "idTypeCode"             ),
