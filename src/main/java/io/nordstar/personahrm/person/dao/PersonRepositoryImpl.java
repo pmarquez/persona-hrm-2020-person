@@ -44,7 +44,6 @@ public class PersonRepositoryImpl implements PersonsRepository {
     @Autowired
     private NamedParameterJdbcTemplate personNpJdbcTemplate;
 
-
     //   Companies CRUD
     private static final String RETRIEVE_PERSON_BY_CODE_SQL_QUERY = "SELECT hrm_pers_personentity.personCode, "                                                                         +
                                                                            "hrm_pers_personentity.idTypeCode, "                                                                         +
