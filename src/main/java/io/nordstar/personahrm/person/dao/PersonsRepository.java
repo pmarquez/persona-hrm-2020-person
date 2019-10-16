@@ -1,3 +1,4 @@
+
 package io.nordstar.personahrm.person.dao;
 
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
@@ -40,3 +41,4 @@ public interface PersonsRepository {
     public void deletePerson ( int personCode );
 
 }
+

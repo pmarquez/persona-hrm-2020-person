@@ -45,19 +45,19 @@ import java.time.format.DateTimeParseException;
 @Data
 @NoArgsConstructor
 public class  PersonBaseRec {
-    protected int           personCode;
-    protected int           idTypeCode;
-    protected String        idType;
-    protected String        idNumber;
-    protected String        firstName;
-    protected String        middleName;
-    protected String        lastName;
-    protected int           genderCode;
-    protected String        gender;
-    protected String        socialSecurityNumber;
-    protected String        birthDate;
-    protected String        creationDate;
-    protected Boolean       active;
+    int           personCode;
+    int           idTypeCode;
+    String        idType;
+    String        idNumber;
+    String        firstName;
+    String        middleName;
+    String        lastName;
+    int           genderCode;
+    String        gender;
+    String        socialSecurityNumber;
+    String        birthDate;
+    String        creationDate;
+    Boolean       active;
 
     public PersonBaseRec ( int personCode,
                            int idTypeCode,
