@@ -46,17 +46,17 @@ import java.time.format.DateTimeParseException;
 @AllArgsConstructor
 @Builder
 public class AcademiaBaseRec {
-    private int           academiaCode;
-    private int           personCode;
-    private LocalDate     startDate;
-    private LocalDate     endDate;
-    private boolean       ongoing;
-    private String        degreeName;
-    private String        institution;      //   Educational Institution
-    private String        institutionCity;
-    private String        institutionState;
-    private String        institutionCountry;
-    private String        achievements;
-    private LocalDateTime creationDate;
+    int           academiaCode;
+    int           personCode;
+    LocalDate     startDate;
+    LocalDate     endDate;
+    boolean       ongoing;
+    String        degreeName;
+    String        institution;      //   Educational Institution
+    String        institutionCity;
+    String        institutionState;
+    String        institutionCountry;
+    String        achievements;
+    LocalDateTime creationDate;
 
 }
