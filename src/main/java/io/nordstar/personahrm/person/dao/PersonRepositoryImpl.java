@@ -45,6 +45,25 @@ public class PersonRepositoryImpl implements PersonsRepository {
     private NamedParameterJdbcTemplate personNpJdbcTemplate;
 
     //   Companies CRUD
+    private static final String INSERT_PERSON_SQL_QUERY = "INSERT INTO hrm_pers_personentity ( idTypeCode, "                                +
+                                                                                              "idNumber, "                                  +
+                                                                                              "firstName, "                                 +
+                                                                                              "middleName, "                                +
+                                                                                              "lastName, "                                  +
+                                                                                              "genderCode, "                                +
+                                                                                              "socialSecurityNumber, "                      +
+                                                                                              "birthDate, "                                 +
+                                                                                              "active ) VALUES ( :idTypeCode, "             +
+                                                                                                                ":idNumber, "               +
+                                                                                                                ":firstName, "              +
+                                                                                                                ":middleName, "             +
+                                                                                                                ":lastName, "               +
+                                                                                                                ":genderCode, "             +
+                                                                                                                ":socialSecurityNumber, "   +
+                                                                                                                ":birthDate, "              +
+                                                                                                                ":active )";
+
+
     private static final String RETRIEVE_PERSON_BY_CODE_SQL_QUERY = "SELECT hrm_pers_personentity.personCode, "                                                                         +
                                                                            "hrm_pers_personentity.idTypeCode, "                                                                         +
                                                                            "IFNULL(hrm_pers_idtypeentity.idTypeName,'') AS ID_TYPE_NAME, "                                              +
