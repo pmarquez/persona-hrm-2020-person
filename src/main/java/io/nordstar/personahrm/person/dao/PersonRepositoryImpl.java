@@ -109,7 +109,35 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
 
     @Override
-    public void createPerson ( PersonRec company ) {
+    public boolean createPerson ( PersonRec person ) {
+
+        System.out.println ( "SQLQuery: " + INSERT_PERSON_SQL_QUERY );
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
+        mapSqlParameterSource.addValue ( "idTypeCode",            person.getIdTypeCode           ( ) );
+        mapSqlParameterSource.addValue ( "idNumber",              person.getIdNumber             ( ) );
+        mapSqlParameterSource.addValue ( "firstName",             person.getFirstName            ( ) );
+        mapSqlParameterSource.addValue ( "middleName",            person.getMiddleName           ( ) );
+        mapSqlParameterSource.addValue ( "lastName",              person.getLastName             ( ) );
+        mapSqlParameterSource.addValue ( "genderCode",            person.getGenderCode           ( ) );
+        mapSqlParameterSource.addValue ( "socialSecurityNumber",  person.getSocialSecurityNumber ( ) );
+        mapSqlParameterSource.addValue ( "active",                person.getActive               ( ) );
+
+        try {
+            personNpJdbcTemplate.update ( PersonRepositoryImpl.INSERT_PERSON_SQL_QUERY, mapSqlParameterSource );
+
+        } catch ( InvalidResultSetAccessException irsae ) {
+            System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
+
+        } catch ( DataAccessException dae ) {
+            System.out.println ( "DataAccessException: " + dae.getStackTrace ( ) );
+
+        } catch ( Exception e ) {
+            System.out.println ( "Exception: " + e.getStackTrace ( ).toString () );
+
+        }
+
+        return true;
 
     }
 

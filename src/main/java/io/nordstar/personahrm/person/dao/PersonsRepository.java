@@ -30,7 +30,7 @@ import java.util.List;
 public interface PersonsRepository {
 
     //   Persons CRUD
-    public void createPerson ( PersonRec company );
+    public boolean createPerson ( PersonRec company );
 
     public PersonRec retrievePersonByCode ( int personCode );
 
