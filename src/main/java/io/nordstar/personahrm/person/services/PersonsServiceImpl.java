@@ -1,4 +1,4 @@
-package io.nordstar.personahrm.person.web.services;
+package io.nordstar.personahrm.person.services;
 
 import io.nordstar.personahrm.person.dao.PersonRepositoryImpl;
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
