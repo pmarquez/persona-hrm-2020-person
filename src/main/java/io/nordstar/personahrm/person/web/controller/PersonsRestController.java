@@ -42,6 +42,7 @@ import io.nordstar.personahrm.person.web.services.PersonsService;
  * @author Paulo Márquez
  * @version 1.0 - 2019-09-16 09:40 PT
  */
+@RequestMapping("/PERSONA/personAPI/1.0/person")
 @RestController
 public class PersonsRestController {
 
@@ -72,7 +73,7 @@ public class PersonsRestController {
         this.personsService = personsService;
     }
 
-    @PostMapping ( value = "/personsAPI/1.0/persons/person" )
+    @PostMapping ( value = "/person" )
     public ResponseEntity createPerson ( @RequestBody PersonRec personData ) {
 
         this.personsService.createPerson ( personData );
@@ -84,7 +85,7 @@ public class PersonsRestController {
      * Retrieves a list of persons from storage.
      * @return ResponseRec<List<PersonBaseRec>>
      */
-    @GetMapping ( value = "/personsAPI/1.0/persons/persons" )
+    @GetMapping ( value = "/persons" )
     public ResponseEntity<List<PersonBaseRec>> personList ( ) {
 
         List<PersonBaseRec> l = this.personsService.retrievePersons ( );
@@ -108,7 +109,7 @@ public class PersonsRestController {
      * @param personCode
      * @return ResponseRec<PersonRec>
      */
-    @GetMapping ( value = "/personsAPI/1.0/persons/persons/{personCode}" )
+    @GetMapping ( value = "/person/{personCode}" )
     public ResponseEntity<PersonRec> retrievePersonByCode ( @PathVariable int personCode ) {
 
         PersonRec r = this.personsService.retrievePersonByCode ( personCode );
@@ -133,7 +134,7 @@ public class PersonsRestController {
      * @param personData
      * @return
      */
-    @PutMapping ( value = "/personsAPI/1.0/persons/persons/{personCode}" )
+    @PutMapping ( value = "/person/{personCode}" )
     public ResponseEntity updatePerson ( @PathVariable int personCode, @RequestBody PersonRec personData ) {
 
         this.personsService.updatePerson ( personCode, personData );
@@ -146,7 +147,7 @@ public class PersonsRestController {
      *
      * @param personCode
      */
-    @DeleteMapping ( value = "/personsAPI/1.0/persons/persons/{personCode}" )
+    @DeleteMapping ( value = "/person/{personCode}" )
     public ResponseEntity deletePerson ( int personCode ) {
 
         this.personsService.deletePerson ( personCode );
@@ -161,7 +162,7 @@ public class PersonsRestController {
      * @return ResponseRec<Boolean>
      * @since 1.0
      */
-    @GetMapping ( value = "/personsAPI/1.0/persons/exists/{personCode}" )
+    @GetMapping ( value = "/exists/{personCode}" )
     public ResponseEntity personExists ( @PathVariable int personCode ) {
 
         PersonRec r = this.personsService.retrievePersonByCode ( personCode );
