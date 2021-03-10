@@ -48,8 +48,8 @@ import java.time.format.DateTimeParseException;
 public class AcademiaBaseRec {
     int           academiaCode;
     int           personCode;
-    LocalDate     startDate;
-    LocalDate     endDate;
+    LocalDateTime startDate;
+    LocalDateTime endDate;
     boolean       ongoing;
     String        degreeName;
     String        institution;      //   Educational Institution
@@ -57,6 +57,7 @@ public class AcademiaBaseRec {
     String        institutionState;
     String        institutionCountry;
     String        achievements;
-    LocalDateTime creationDate;
+    LocalDateTime creationTimestamp;
+    boolean       active;
 
 }

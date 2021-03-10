@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ import java.util.List;
  * @version 1.0 - 2019-09-30 15:02 PT
  */
 @Repository
-public class PersonRepositoryImpl implements PersonsRepository {
+public class PersonDAO {
 
     @Autowired
     private JdbcTemplate personJdbcTemplate;
@@ -108,7 +107,7 @@ public class PersonRepositoryImpl implements PersonsRepository {
                                                                          "hrm_pers_personentity.middleName";
 
 
-    @Override
+
     public boolean createPerson ( PersonRec person ) {
 
         System.out.println ( "SQLQuery: " + INSERT_PERSON_SQL_QUERY );
@@ -124,7 +123,7 @@ public class PersonRepositoryImpl implements PersonsRepository {
         mapSqlParameterSource.addValue ( "active",                person.getActive               ( ) );
 
         try {
-            personNpJdbcTemplate.update ( PersonRepositoryImpl.INSERT_PERSON_SQL_QUERY, mapSqlParameterSource );
+            personNpJdbcTemplate.update ( PersonDAO.INSERT_PERSON_SQL_QUERY, mapSqlParameterSource );
 
         } catch ( InvalidResultSetAccessException irsae ) {
             System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
@@ -141,7 +140,6 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
     }
 
-    @Override
     public PersonRec retrievePersonByCode ( int personCode ) {
 
         System.out.println ( "SQLQuery: " + RETRIEVE_PERSON_BY_CODE_SQL_QUERY );
@@ -151,8 +149,8 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
         try {
 
-            return personNpJdbcTemplate.queryForObject ( "CALL SP_RETRIEVE_PERSON( :personCode )",
-            //return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
+            //return personNpJdbcTemplate.queryForObject ( "CALL SP_RETRIEVE_PERSON( :personCode )",
+            return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
                     mapSqlParameterSource,
                     ( rs, rowNum ) -> new PersonRec (     rs.getInt        ( "personCode"             ),
                                                           rs.getInt        ( "idTypeCode"             ),
@@ -186,7 +184,6 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
     }
 
-    @Override
     public List<PersonBaseRec> retrievePersons ( ) {
 
         System.out.println ( "SQLQuery: " + RETRIEVE_PERSONS_SQL_QUERY );
@@ -194,8 +191,8 @@ public class PersonRepositoryImpl implements PersonsRepository {
         List<PersonBaseRec> persons = new ArrayList<> ( );
 
         try {
-            persons = personJdbcTemplate.query ( "CALL SP_RETRIEVE_PERSONS()",
-            //persons = personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
+            //persons = personJdbcTemplate.query ( "CALL SP_RETRIEVE_PERSONS()",
+            persons = personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
                     ( rs, rowNum ) -> new PersonBaseRec (   rs.getInt     ( "personCode"   ),
                                                             rs.getInt     ( "idTypeCode"   ),
                                                             rs.getString  ( "ID_TYPE_NAME" ),
@@ -227,12 +224,10 @@ public class PersonRepositoryImpl implements PersonsRepository {
 
     }
 
-    @Override
     public void updatePerson ( int personCode, PersonRec personData ) {
 
     }
 
-    @Override
     public void deletePerson ( int personCode ) {
 
     }

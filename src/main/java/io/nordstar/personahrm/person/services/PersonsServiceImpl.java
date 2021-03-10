@@ -1,6 +1,6 @@
 package io.nordstar.personahrm.person.services;
 
-import io.nordstar.personahrm.person.dao.PersonRepositoryImpl;
+import io.nordstar.personahrm.person.dao.PersonDAO;
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
 import io.nordstar.personahrm.person.model.person.PersonRec;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.List;
 public class PersonsServiceImpl implements PersonsService {
 
     @Autowired
-    private PersonRepositoryImpl personsDAO;
+    private PersonDAO personsDAO;
 
     @Override
     public void createPerson ( PersonRec personData ) {
