@@ -2,6 +2,7 @@ package io.nordstar.personahrm.person.dao;
 
 import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
 import io.nordstar.personahrm.person.model.education.CertificationRec;
+import io.nordstar.personahrm.person.model.education.SkillRec;
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
 import io.nordstar.personahrm.person.model.person.PersonRec;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,50 +47,49 @@ public class EducationDAO {
     private NamedParameterJdbcTemplate academiaNpJdbcTemplate;
 
 
-    private static final String RETRIEVE_ACADEMIC_RECORDS_SQL_QUERY = "SELECT hrm_pers_academiaentity.academiaCode, " +
-            "hrm_pers_academiaentity.personCode, " +
-            "hrm_pers_academiaentity.startDate, " +
-            "hrm_pers_academiaentity.endDate, " +
-            "hrm_pers_academiaentity.ongoing, " +
-            "hrm_pers_academiaentity.degreeAchieved, " +
-            "hrm_pers_academiaentity.instituteName, " +
-            "hrm_pers_academiaentity.instituteCity, " +
-            "hrm_pers_academiaentity.instituteState, " +
-            "hrm_pers_academiaentity.instituteCountry, " +
-            "hrm_pers_academiaentity.achievements, " +
-            "hrm_pers_academiaentity.creationTimestamp, " +
-            "hrm_pers_academiaentity.active " +
+    private static final String RETRIEVE_ACADEMIC_RECORDS_SQL_QUERY =   "SELECT hrm_pers_academiaentity.academiaCode, "             +
+                                                                               "hrm_pers_academiaentity.personCode, "               +
+                                                                               "hrm_pers_academiaentity.startDate, "                +
+                                                                               "hrm_pers_academiaentity.endDate, "                  +
+                                                                               "hrm_pers_academiaentity.ongoing, "                  +
+                                                                               "hrm_pers_academiaentity.degreeAchieved, "           +
+                                                                               "hrm_pers_academiaentity.instituteName, "            +
+                                                                               "hrm_pers_academiaentity.instituteCity, "            +
+                                                                               "hrm_pers_academiaentity.instituteState, "           +
+                                                                               "hrm_pers_academiaentity.instituteCountry, "         +
+                                                                               "hrm_pers_academiaentity.achievements, "             +
+                                                                               "hrm_pers_academiaentity.creationTimestamp, "        +
+                                                                               "hrm_pers_academiaentity.active "                    +
 
-            "FROM hrm_pers_academiaentity " +
+                                                                        "FROM hrm_pers_academiaentity "                             +
 
-            "WHERE hrm_pers_academiaentity.personCode = :personCode " +
-            "AND hrm_pers_academiaentity.active = true " +
+                                                                        "WHERE hrm_pers_academiaentity.personCode = :personCode "   +
+                                                                          "AND hrm_pers_academiaentity.active = true "              +
 
-            "ORDER BY startDate DESC";
+                                                                        "ORDER BY startDate DESC";
 
     public List<AcademiaBaseRec> retrieveAcademicRecords(int personCode) {
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue("personCode", personCode);
+                              mapSqlParameterSource.addValue("personCode", personCode);
 
         try {
 
-//            return academiaNpJdbcTemplate.queryForObject ( "CALL SP_RETRIEVE_PERSON( :personCode )",
             return academiaNpJdbcTemplate.query(RETRIEVE_ACADEMIC_RECORDS_SQL_QUERY,
                     mapSqlParameterSource,
-                    (rs, rowNum) -> new AcademiaBaseRec(rs.getInt("academiaCode"),
-                            rs.getInt("personCode"),
-                            (rs.getTimestamp("startDate").toLocalDateTime()),
-                            (rs.getTimestamp("endDate").toLocalDateTime()),
-                            rs.getBoolean("ongoing"),
-                            rs.getString("degreeAchieved"),
-                            rs.getString("instituteName"),
-                            rs.getString("instituteCity"),
-                            rs.getString("instituteState"),
-                            rs.getString("instituteCountry"),
-                            rs.getString("achievements"),
-                            (rs.getTimestamp("creationTimestamp").toLocalDateTime()),
-                            rs.getBoolean("active")
+                    (rs, rowNum) -> new AcademiaBaseRec ( rs.getInt       ( "academiaCode"      ),
+                                                          rs.getInt       ( "personCode"        ),
+                                                        ( rs.getTimestamp ( "startDate"         ).toLocalDateTime ( ) ).toLocalDate ( ),
+                                                        ( rs.getTimestamp ( "endDate"           ).toLocalDateTime ( ) ).toLocalDate ( ),
+                                                          rs.getBoolean   ( "ongoing"           ),
+                                                          rs.getString    ( "degreeAchieved"    ),
+                                                          rs.getString    ( "instituteName"     ),
+                                                          rs.getString    ( "instituteCity"     ),
+                                                          rs.getString    ( "instituteState"    ),
+                                                          rs.getString    ( "instituteCountry"  ),
+                                                          rs.getString    ( "achievements"      ),
+                                                        ( rs.getTimestamp ( "creationTimestamp" ).toLocalDateTime ( ) ),
+                                                          rs.getBoolean   ( "active"            )
                     )
             );
 
@@ -127,7 +127,7 @@ public class EducationDAO {
     public List<CertificationRec> retrieveCertifications ( int personCode ) {
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-        mapSqlParameterSource.addValue ( "personCode", personCode );
+                              mapSqlParameterSource.addValue ( "personCode", personCode );
 
         try {
 
@@ -160,4 +160,65 @@ public class EducationDAO {
 
     }
 
+    private static final String RETRIEVE_SKILLS_SQL_QUERY =     "SELECT hrm_pers_skillentity.skillCode, "                                                                                   +
+                                                                       "hrm_pers_skillentity.personCode, "                                                                                  +
+                                                                       "hrm_pers_skillentity.skillName, "                                                                                   +
+                                                                       "hrm_pers_skillentity.skillTypeCode, "                                                                               +
+                                                                       "htm_pers_skilltypeentity.skillTypeName, "                                                                           +
+                                                                       "hrm_pers_skillentity.description, "                                                                                 +
+                                                                       "hrm_pers_skillentity.skillProficiency, "                                                                            +
+                                                                       "hrm_pers_skillentity.lastUpdated, "                                                                                 +
+                                                                       "hrm_pers_skillentity.creationTimestamp, "                                                                           +
+                                                                       "hrm_pers_skillentity.active "                                                                                       +
+
+                                                                "FROM hrm_pers_skillentity "                                                                                                +
+
+                                                                "LEFT OUTER JOIN htm_pers_skilltypeentity ON hrm_pers_skillentity.skillTypeCode = htm_pers_skilltypeentity.skillTypeCode "  +
+
+                                                                "WHERE hrm_pers_skillentity.personCode = :personCode "                                                                      +
+                                                                  "AND hrm_pers_skillentity.active = true "                                                                                 +
+
+                                                                "ORDER BY htm_pers_skilltypeentity.skillTypeName, hrm_pers_skillentity.skillName";
+
+    /**
+     *
+     * @param personCode
+     * @return
+     */
+    public List<SkillRec> retrieveSkills ( int personCode ) {
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
+                              mapSqlParameterSource.addValue ( "personCode", personCode );
+
+        try {
+
+            return academiaNpJdbcTemplate.query( RETRIEVE_SKILLS_SQL_QUERY,
+                    mapSqlParameterSource,
+                    (rs, rowNum) -> new SkillRec (  rs.getInt       ( "skillCode"           ),
+                                                    rs.getInt       ( "personCode"          ),
+                                                    rs.getString    ( "skillName"           ),
+                                                    rs.getInt       ( "skillTypeCode"       ),
+                                                    rs.getString    ( "skillTypeName"       ),
+                                                    rs.getString    ( "description"         ),
+                                                    rs.getInt       ( "skillProficiency"    ),
+                                                  ( rs.getTimestamp ( "lastUpdated"         ).toLocalDateTime ( ) ),
+                                                  ( rs.getTimestamp ( "creationTimestamp"   ).toLocalDateTime ( ) ),
+                                                    rs.getBoolean   ( "active"              )
+                    )
+            );
+
+        } catch ( InvalidResultSetAccessException irsae ) {
+            System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
+
+        } catch ( DataAccessException dae ) {
+            System.out.println ( "DataAccessException: " + dae.getLocalizedMessage ( ) );
+            System.out.println ( "DataAccessException: " + dae.getStackTrace ( ) );
+
+        } catch ( Exception e ) {
+            System.out.println ( "Exception: " + e.getStackTrace ( ).toString ( ) );
+
+        }
+
+        return new ArrayList<SkillRec> ( );
+    }
 }

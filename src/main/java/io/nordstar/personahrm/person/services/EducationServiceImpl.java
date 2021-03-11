@@ -3,6 +3,7 @@ package io.nordstar.personahrm.person.services;
 import io.nordstar.personahrm.person.dao.EducationDAO;
 import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
 import io.nordstar.personahrm.person.model.education.CertificationRec;
+import io.nordstar.personahrm.person.model.education.SkillRec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,4 +77,19 @@ public class EducationServiceImpl implements EducationService {
 
        return certifications;
     }
+
+    /**
+     * [R]
+     *
+     * @param personCode
+     * @return
+     */
+    @Override
+    public List<SkillRec> retrieveSkills ( int personCode ) {
+
+        List<SkillRec> skills = educationDAO.retrieveSkills ( personCode );
+
+        return skills;
+    }
+
 }

@@ -43,6 +43,7 @@ import java.time.format.DateTimeParseException;
  * @version 1.0 - 2019-09-15 19:53 PT
  */
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class  PersonBaseRec {
     int           personCode;
@@ -55,36 +56,38 @@ public class  PersonBaseRec {
     int           genderCode;
     String        gender;
     String        socialSecurityNumber;
-    String        birthDate;
-    String        creationDate;
+    LocalDate     birthDate;
+    LocalDateTime creationDate;
     Boolean       active;
 
-    public PersonBaseRec ( int personCode,
-                           int idTypeCode,
-                           String idType,
-                           String idNumber,
-                           String firstName,
-                           String middleName,
-                           String lastName,
-                           int genderCode,
-                           String gender,
-                           String socialSecurityNumber,
-                           String birthDate,
-                           String creationDate,
-                           Boolean active ) {
+    /*
+    public PersonBaseRec ( int           personCode,
+                           int           idTypeCode,
+                           String        idType,
+                           String        idNumber,
+                           String        firstName,
+                           String        middleName,
+                           String        lastName,
+                           int           genderCode,
+                           String        gender,
+                           String        socialSecurityNumber,
+                           LocalDate     birthDate,
+                           LocalDateTime creationDate,
+                           Boolean       active ) {
 
-        this.personCode = personCode;
-        this.idTypeCode = idTypeCode;
-        this.idType = idType;
-        this.idNumber = idNumber;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.genderCode = genderCode;
-        this.gender = gender;
+        this.personCode           = personCode;
+        this.idTypeCode           = idTypeCode;
+        this.idType               = idType;
+        this.idNumber             = idNumber;
+        this.firstName            = firstName;
+        this.middleName           = middleName;
+        this.lastName             = lastName;
+        this.genderCode           = genderCode;
+        this.gender               = gender;
         this.socialSecurityNumber = socialSecurityNumber;
-        this.birthDate = birthDate;
-        this.creationDate = creationDate;
-        this.active = active;
+        this.birthDate            = birthDate;
+        this.creationDate         = creationDate;
+        this.active               = active;
     }
+    */
 }

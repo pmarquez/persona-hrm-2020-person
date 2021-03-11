@@ -6,6 +6,7 @@ package io.nordstar.personahrm.person.web.controller;
 
 import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
 import io.nordstar.personahrm.person.model.education.CertificationRec;
+import io.nordstar.personahrm.person.model.education.SkillRec;
 import io.nordstar.personahrm.person.services.EducationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,6 +46,7 @@ public class EducationRestController {
     //   Controller Constants
     private static final int EMPTY_ACADEMIC_RECORDS_LIST = 0;
     private static final int EMPTY_CERTIFICATIONS_LIST   = 0;
+    private static final int EMPTY_SKILLS_LIST           = 0;
     private static final int EMPTY_ACADEMIC_RECORD_REC   = 0;
 
 //   Response Status
@@ -74,7 +76,7 @@ public class EducationRestController {
      * @return ResponseEntity<List<AcademiaBaseRec>>
      */
     @GetMapping ( value = "/academicRecords/{personCode}" )
-    public ResponseEntity<List<AcademiaBaseRec>> retrievePersonAcademicRecords (@PathVariable ( "personCode" ) int personCode ) {
+    public ResponseEntity<List<AcademiaBaseRec>> retrievePersonAcademicRecords ( @PathVariable ( "personCode" ) int personCode ) {
 
         List<AcademiaBaseRec> l = this.educationService.retrieveAcademicRecords ( personCode );
 
@@ -105,6 +107,30 @@ public class EducationRestController {
         ResponseEntity response = null;
 
         if ( l.size() > EducationRestController.EMPTY_CERTIFICATIONS_LIST ) {
+            response = new ResponseEntity ( l, HttpStatus.OK );
+
+        } else {
+            response = new ResponseEntity ( null, HttpStatus.NOT_FOUND );
+
+        }
+
+        return response;
+
+    }
+
+    /**
+     * Retrieves skills for person from storage
+     * @param personCode
+     * @return ResponseEntity<List<SkillRec>>
+     */
+    @GetMapping ( value = "/skills/{personCode}" )
+    public ResponseEntity<List<SkillRec>> retrievePersonSkills ( @PathVariable ( "personCode" ) int personCode ) {
+
+        List<SkillRec> l = this.educationService.retrieveSkills ( personCode );
+
+        ResponseEntity response = null;
+
+        if ( l.size() > EducationRestController.EMPTY_SKILLS_LIST ) {
             response = new ResponseEntity ( l, HttpStatus.OK );
 
         } else {

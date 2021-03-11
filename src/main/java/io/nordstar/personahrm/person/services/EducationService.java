@@ -2,6 +2,7 @@ package io.nordstar.personahrm.person.services;
 
 import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
 import io.nordstar.personahrm.person.model.education.CertificationRec;
+import io.nordstar.personahrm.person.model.education.SkillRec;
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
 import io.nordstar.personahrm.person.model.person.PersonRec;
 
@@ -36,14 +37,14 @@ public interface EducationService {
      * [C]
      * @param data
      */
-    public void createAcademicRecord ( AcademiaBaseRec data );
+    void createAcademicRecord ( AcademiaBaseRec data );
 
     /**
      * [R]
      * @param personCode
      * @return
      */
-    public List<AcademiaBaseRec> retrieveAcademicRecords ( int personCode );
+    List<AcademiaBaseRec> retrieveAcademicRecords ( int personCode );
 
     /**
      * [U]
@@ -51,14 +52,16 @@ public interface EducationService {
      * @param data
      * @return
      */
-    public int updateAcademicRecord (int academiaCode, AcademiaBaseRec data );
+    int updateAcademicRecord (int academiaCode, AcademiaBaseRec data );
 
     /**
      * [D]
      * @param academiaCode
      * @return
      */
-    public int deleteAcademicRecord ( int academiaCode );
+    int deleteAcademicRecord ( int academiaCode );
+
+//    CERTIFICATIONS CRUD
 
     /**
      * [R]
@@ -66,4 +69,14 @@ public interface EducationService {
      * @return
      */
     List<CertificationRec> retrieveCertifications ( int personCode );
+
+//    SKILLS CRUD
+
+    /**
+     * [R]
+     * @param personCode
+     * @return
+     */
+    List<SkillRec> retrieveSkills ( int personCode );
+
 }

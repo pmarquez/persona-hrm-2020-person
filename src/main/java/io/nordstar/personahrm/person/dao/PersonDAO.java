@@ -95,6 +95,7 @@ public class PersonDAO {
                                                                        "IFNULL(hrm_pers_genderentity.genderName,'') AS GENDER_NAME, "                                               +
                                                                        "IFNULL(hrm_pers_personentity.socialSecurityNumber,'') AS SOCIAL_SECURITY_NUMBER, "                          +
                                                                        "hrm_pers_personentity.birthDate, "                                                                          +
+                                                                       "hrm_pers_personentity.creationTimestamp, "                                                                  +
                                                                        "hrm_pers_personentity.active "                                                                              +
 
                                                                 "FROM hrm_pers_personentity "                                                                                       +
@@ -113,14 +114,14 @@ public class PersonDAO {
         System.out.println ( "SQLQuery: " + INSERT_PERSON_SQL_QUERY );
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
-        mapSqlParameterSource.addValue ( "idTypeCode",            person.getIdTypeCode           ( ) );
-        mapSqlParameterSource.addValue ( "idNumber",              person.getIdNumber             ( ) );
-        mapSqlParameterSource.addValue ( "firstName",             person.getFirstName            ( ) );
-        mapSqlParameterSource.addValue ( "middleName",            person.getMiddleName           ( ) );
-        mapSqlParameterSource.addValue ( "lastName",              person.getLastName             ( ) );
-        mapSqlParameterSource.addValue ( "genderCode",            person.getGenderCode           ( ) );
-        mapSqlParameterSource.addValue ( "socialSecurityNumber",  person.getSocialSecurityNumber ( ) );
-        mapSqlParameterSource.addValue ( "active",                person.getActive               ( ) );
+                              mapSqlParameterSource.addValue ( "idTypeCode",            person.getIdTypeCode           ( ) );
+                              mapSqlParameterSource.addValue ( "idNumber",              person.getIdNumber             ( ) );
+                              mapSqlParameterSource.addValue ( "firstName",             person.getFirstName            ( ) );
+                              mapSqlParameterSource.addValue ( "middleName",            person.getMiddleName           ( ) );
+                              mapSqlParameterSource.addValue ( "lastName",              person.getLastName             ( ) );
+                              mapSqlParameterSource.addValue ( "genderCode",            person.getGenderCode           ( ) );
+                              mapSqlParameterSource.addValue ( "socialSecurityNumber",  person.getSocialSecurityNumber ( ) );
+                              mapSqlParameterSource.addValue ( "active",                person.getActive               ( ) );
 
         try {
             personNpJdbcTemplate.update ( PersonDAO.INSERT_PERSON_SQL_QUERY, mapSqlParameterSource );
@@ -149,7 +150,6 @@ public class PersonDAO {
 
         try {
 
-            //return personNpJdbcTemplate.queryForObject ( "CALL SP_RETRIEVE_PERSON( :personCode )",
             return personNpJdbcTemplate.queryForObject ( RETRIEVE_PERSON_BY_CODE_SQL_QUERY,
                     mapSqlParameterSource,
                     ( rs, rowNum ) -> new PersonRec (     rs.getInt        ( "personCode"             ),
@@ -162,10 +162,12 @@ public class PersonDAO {
                                                           rs.getInt        ( "genderCode"             ),
                                                           rs.getString     ( "GENDER_NAME"            ),
                                                           rs.getString     ( "SOCIAL_SECURITY_NUMBER" ),
-                                                          rs.getString     ( "birthDate"              ),
-                                                          "",
+                                                        ( rs.getTimestamp  ( "birthDate"              ).toLocalDateTime ( ) ).toLocalDate ( ),
+                                                        ( rs.getTimestamp  ( "creationTimestamp"      ).toLocalDateTime ( ) ),
                                                           rs.getBoolean    ( "active"                 ),
-                                                          null
+                                                         null,
+                                                         null,
+                                                         null
                                                     )
                                                  );
 
@@ -191,32 +193,31 @@ public class PersonDAO {
         List<PersonBaseRec> persons = new ArrayList<> ( );
 
         try {
-            //persons = personJdbcTemplate.query ( "CALL SP_RETRIEVE_PERSONS()",
             persons = personJdbcTemplate.query ( RETRIEVE_PERSONS_SQL_QUERY,
-                    ( rs, rowNum ) -> new PersonBaseRec (   rs.getInt     ( "personCode"   ),
-                                                            rs.getInt     ( "idTypeCode"   ),
-                                                            rs.getString  ( "ID_TYPE_NAME" ),
-                                                            rs.getString  ( "ID_NUMBER"    ),
-                                                            rs.getString  ( "FIRST_NAME"   ),
-                                                            rs.getString  ( "MIDDLE_NAME"  ),
-                                                            rs.getString  ( "LAST_NAME"    ),
-                                                            rs.getInt     ( "genderCode"   ),
-                                                            rs.getString  ( "GENDER_NAME"  ),
-                                                            rs.getString  ( "SOCIAL_SECURITY_NUMBER" ),
-                                                            rs.getString  ( "birthDate"    ),
-                                                            "",
-                                                            rs.getBoolean ( "active" )
+                    ( rs, rowNum ) -> new PersonBaseRec (   rs.getInt        ( "personCode"             ),
+                                                            rs.getInt        ( "idTypeCode"             ),
+                                                            rs.getString     ( "ID_TYPE_NAME"           ),
+                                                            rs.getString     ( "ID_NUMBER"              ),
+                                                            rs.getString     ( "FIRST_NAME"             ),
+                                                            rs.getString     ( "MIDDLE_NAME"            ),
+                                                            rs.getString     ( "LAST_NAME"              ),
+                                                            rs.getInt        ( "genderCode"             ),
+                                                            rs.getString     ( "GENDER_NAME"            ),
+                                                            rs.getString     ( "SOCIAL_SECURITY_NUMBER" ),
+                                                          ( rs.getTimestamp  ( "birthDate"              ).toLocalDateTime ( ) ).toLocalDate ( ),
+                                                          ( rs.getTimestamp  ( "creationTimestamp"      ).toLocalDateTime ( ) ),
+                                                            rs.getBoolean    ( "active"                 )
                     )
             );
 
         } catch ( InvalidResultSetAccessException irsae ) {
-            System.out.println ( "InvalidResultSetAccessException: " + irsae.getStackTrace ( ) );
+            System.out.println ( "InvalidResultSetAccessException @ retrievePersons: " + irsae.getStackTrace ( ) );
 
         } catch ( DataAccessException dae ) {
-            System.out.println ( "DataAccessException: " + dae.getStackTrace ( ) );
+            System.out.println ( "DataAccessException @ retrievePersons: " + dae.getStackTrace ( ) );
 
         } catch ( Exception e ) {
-            System.out.println ( "Exception: " + e.getStackTrace ( ).toString ( ) );
+            System.out.println ( "Exception @ retrievePersons: " + e.getStackTrace ( ).toString ( ) );
 
         }
 

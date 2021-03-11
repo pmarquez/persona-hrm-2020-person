@@ -2,20 +2,22 @@
 package io.nordstar.personahrm.person.model.person;
 
 //   Standard Libraries Imports
-
-import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 //   Third Party Libraries Imports
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
 
-//   FENIX Framework Imports
+//   ns Framework Imports
 
 //   Application Domain Imports
-
+import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
+import io.nordstar.personahrm.person.model.education.CertificationRec;
+import io.nordstar.personahrm.person.model.education.SkillRec;
 
 /**
  * PersonRec.java<br><br>
@@ -41,24 +43,29 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PersonRec extends PersonBaseRec {
 
-    private List<AcademiaBaseRec> academia;
+    private List<AcademiaBaseRec>   academia;
+    private List<CertificationRec>  certifications;
+    private List<SkillRec>          skills;
 
-    public PersonRec ( int personCode,
-                       int idTypeCode,
-                       String idType,
-                       String idNumber,
-                       String firstName,
-                       String middleName,
-                       String lastName,
-                       int genderCode,
-                       String gender,
-                       String socialSecurityNumber,
-                       String birthDate,
-                       String creationDate,
-                       Boolean active,
-                       List<AcademiaBaseRec> academia ) {
+    public PersonRec ( int           personCode,
+                       int           idTypeCode,
+                       String        idType,
+                       String        idNumber,
+                       String        firstName,
+                       String        middleName,
+                       String        lastName,
+                       int           genderCode,
+                       String        gender,
+                       String        socialSecurityNumber,
+                       LocalDate     birthDate,
+                       LocalDateTime creationDate,
+                       Boolean       active,
+                       List<AcademiaBaseRec>  academia,
+                       List<CertificationRec> certifications,
+                       List<SkillRec>         skills ) {
 
         super ( personCode,
                 idTypeCode,
@@ -74,7 +81,9 @@ public class PersonRec extends PersonBaseRec {
                 creationDate,
                 active );
 
-        this.academia = academia;
+        this.academia       = academia;
+        this.certifications = certifications;
+        this.skills         = skills;
 
     }
 
