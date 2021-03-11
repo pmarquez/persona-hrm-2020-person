@@ -1,17 +1,18 @@
 package io.nordstar.personahrm.person.services;
 
-import io.nordstar.personahrm.person.dao.AcademiaDAO;
+import io.nordstar.personahrm.person.dao.EducationDAO;
 import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
+import io.nordstar.personahrm.person.model.education.CertificationRec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AcademiaServiceImpl implements AcademiaService {
+public class EducationServiceImpl implements EducationService {
 
     @Autowired
-    private AcademiaDAO academiaDAO;
+    private EducationDAO educationDAO;
 
     /**
      * [C]
@@ -26,13 +27,13 @@ public class AcademiaServiceImpl implements AcademiaService {
     /**
      * [R]
      *
-     * @param codPerson
+     * @param personCode
      * @return
      */
     @Override
-    public List<AcademiaBaseRec> retrieveAcademicRecords ( int codPerson ) {
+    public List<AcademiaBaseRec> retrieveAcademicRecords ( int personCode ) {
 
-        List<AcademiaBaseRec> academia = academiaDAO.retrieveAcademicRecords ( codPerson );
+        List<AcademiaBaseRec> academia = educationDAO.retrieveAcademicRecords ( personCode );
 
         System.out.println ( "Academia.size ( ): " + academia.size ( ) );
 
@@ -60,5 +61,19 @@ public class AcademiaServiceImpl implements AcademiaService {
     @Override
     public int deleteAcademicRecord(int academiaCode) {
         return 0;
+    }
+
+    /**
+     * [R]
+     *
+     * @param personCode
+     * @return
+     */
+    @Override
+    public List<CertificationRec> retrieveCertifications ( int personCode ) {
+
+        List<CertificationRec> certifications = educationDAO.retrieveCertifications ( personCode );
+
+       return certifications;
     }
 }

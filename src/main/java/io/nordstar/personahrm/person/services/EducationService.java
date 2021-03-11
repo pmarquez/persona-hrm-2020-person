@@ -1,13 +1,14 @@
 package io.nordstar.personahrm.person.services;
 
 import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
+import io.nordstar.personahrm.person.model.education.CertificationRec;
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
 import io.nordstar.personahrm.person.model.person.PersonRec;
 
 import java.util.List;
 
 /**
- * AcademiaService.java<br><br>
+ * EducationService.java<br><br>
  * Creation Date 2021-03-10 16:37 CET<br><br>
  * <b>DESCRIPTION:</b><br><br>
  * <p></p>
@@ -27,7 +28,7 @@ import java.util.List;
  * @author Paulo Márquez
  * @version 1.0 - 2021-03-10 16:37 CET
  */
-public interface AcademiaService {
+public interface EducationService {
 
 //    ACADEMIA CRUD
 
@@ -39,10 +40,10 @@ public interface AcademiaService {
 
     /**
      * [R]
-     * @param codPerson
+     * @param personCode
      * @return
      */
-    public List<AcademiaBaseRec> retrieveAcademicRecords ( int codPerson );
+    public List<AcademiaBaseRec> retrieveAcademicRecords ( int personCode );
 
     /**
      * [U]
@@ -59,4 +60,10 @@ public interface AcademiaService {
      */
     public int deleteAcademicRecord ( int academiaCode );
 
+    /**
+     * [R]
+     * @param personCode
+     * @return
+     */
+    List<CertificationRec> retrieveCertifications ( int personCode );
 }

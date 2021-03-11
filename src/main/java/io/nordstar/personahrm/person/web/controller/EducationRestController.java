@@ -5,10 +5,8 @@ package io.nordstar.personahrm.person.web.controller;
 //   Standard Libraries Imports
 
 import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
-import io.nordstar.personahrm.person.model.person.PersonBaseRec;
-import io.nordstar.personahrm.person.model.person.PersonRec;
-import io.nordstar.personahrm.person.services.AcademiaService;
-import io.nordstar.personahrm.person.services.PersonsService;
+import io.nordstar.personahrm.person.model.education.CertificationRec;
+import io.nordstar.personahrm.person.services.EducationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -38,14 +36,15 @@ import java.util.List;
  * @author Paulo Márquez
  * @version 1.0 - 2021-03-10 17:15 CET
  */
-@RequestMapping("/PERSONA/personAPI/1.0/academia")
+@RequestMapping("/PERSONA/personAPI/1.0/education")
 @RestController
-public class AcademiaRestController {
+public class EducationRestController {
 
-    private static final Logger logger = LogManager.getLogger ( AcademiaRestController.class );
+    private static final Logger logger = LogManager.getLogger ( EducationRestController.class );
 
     //   Controller Constants
     private static final int EMPTY_ACADEMIC_RECORDS_LIST = 0;
+    private static final int EMPTY_CERTIFICATIONS_LIST   = 0;
     private static final int EMPTY_ACADEMIC_RECORD_REC   = 0;
 
 //   Response Status
@@ -58,15 +57,15 @@ public class AcademiaRestController {
     private static final String REQUESTED_PERSON_EXISTS                         = "ACADEMIA_007";   //   The requested person exists.
     private static final String REQUESTED_PERSON_DOES_NOT_EXIST                 = "ACADEMIA_008";   //   The requested person does not exist.
 
-    private final AcademiaService academiaService;
+    private final EducationService educationService;
 
     /**
      * Constructor
      *
-     * @param academiaService
+     * @param educationService
      */
-    public AcademiaRestController ( AcademiaService academiaService ) {
-        this.academiaService = academiaService;
+    public EducationRestController(EducationService educationService) {
+        this.educationService = educationService;
     }
 
     /**
@@ -75,18 +74,42 @@ public class AcademiaRestController {
      * @return ResponseEntity<List<AcademiaBaseRec>>
      */
     @GetMapping ( value = "/academicRecords/{personCode}" )
-    public ResponseEntity<List<AcademiaBaseRec>> retrievePersonByCode (@PathVariable ( "personCode" ) int personCode ) {
+    public ResponseEntity<List<AcademiaBaseRec>> retrievePersonAcademicRecords (@PathVariable ( "personCode" ) int personCode ) {
 
-        List<AcademiaBaseRec> l = this.academiaService.retrieveAcademicRecords ( personCode );
+        List<AcademiaBaseRec> l = this.educationService.retrieveAcademicRecords ( personCode );
 
         ResponseEntity response = null;
 
-        if ( l.size() > AcademiaRestController.EMPTY_ACADEMIC_RECORDS_LIST ) {
+        if ( l.size() > EducationRestController.EMPTY_ACADEMIC_RECORDS_LIST ) {
             response = new ResponseEntity ( l, HttpStatus.OK );
 
         } else {
             response = new ResponseEntity ( null, HttpStatus.NOT_FOUND );
-            
+
+        }
+
+        return response;
+
+    }
+
+    /**
+     * Retrieves certifications for person from storage
+     * @param personCode
+     * @return ResponseEntity<List<CertificationRec>>
+     */
+    @GetMapping ( value = "/certifications/{personCode}" )
+    public ResponseEntity<List<CertificationRec>> retrievePersonCertifications (@PathVariable ( "personCode" ) int personCode ) {
+
+        List<CertificationRec> l = this.educationService.retrieveCertifications ( personCode );
+
+        ResponseEntity response = null;
+
+        if ( l.size() > EducationRestController.EMPTY_CERTIFICATIONS_LIST ) {
+            response = new ResponseEntity ( l, HttpStatus.OK );
+
+        } else {
+            response = new ResponseEntity ( null, HttpStatus.NOT_FOUND );
+
         }
 
         return response;
