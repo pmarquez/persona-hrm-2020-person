@@ -43,7 +43,7 @@ public class PersonDAO {
     @Autowired
     private NamedParameterJdbcTemplate personNpJdbcTemplate;
 
-    //   Companies CRUD
+    //   Persons CRUD
     private static final String INSERT_PERSON_SQL_QUERY = "INSERT INTO hrm_pers_personentity ( idTypeCode, "                                +
                                                                                               "idNumber, "                                  +
                                                                                               "firstName, "                                 +
@@ -74,6 +74,7 @@ public class PersonDAO {
                                                                            "IFNULL(hrm_pers_genderentity.genderName,'') AS GENDER_NAME, "                                               +
                                                                            "IFNULL(hrm_pers_personentity.socialSecurityNumber,'') AS SOCIAL_SECURITY_NUMBER, "                          +
                                                                            "hrm_pers_personentity.birthDate, "                                                                          +
+                                                                           "hrm_pers_personentity.creationTimestamp, "                                                                          +
                                                                            "hrm_pers_personentity.active "                                                                              +
 
                                                                     "FROM hrm_pers_personentity "                                                                                       +
@@ -111,7 +112,7 @@ public class PersonDAO {
 
     public boolean createPerson ( PersonRec person ) {
 
-        System.out.println ( "SQLQuery: " + INSERT_PERSON_SQL_QUERY );
+        //System.out.println ( "SQLQuery: " + INSERT_PERSON_SQL_QUERY );
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
                               mapSqlParameterSource.addValue ( "idTypeCode",            person.getIdTypeCode           ( ) );
@@ -146,7 +147,7 @@ public class PersonDAO {
         System.out.println ( "SQLQuery: " + RETRIEVE_PERSON_BY_CODE_SQL_QUERY );
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource ( );
-        mapSqlParameterSource.addValue ( "personCode", personCode );
+                              mapSqlParameterSource.addValue ( "personCode", personCode );
 
         try {
 
@@ -188,7 +189,7 @@ public class PersonDAO {
 
     public List<PersonBaseRec> retrievePersons ( ) {
 
-        System.out.println ( "SQLQuery: " + RETRIEVE_PERSONS_SQL_QUERY );
+        //System.out.println ( "SQLQuery: " + RETRIEVE_PERSONS_SQL_QUERY );
 
         List<PersonBaseRec> persons = new ArrayList<> ( );
 

@@ -1,6 +1,10 @@
 package io.nordstar.personahrm.person.services;
 
+import io.nordstar.personahrm.person.dao.EducationDAO;
 import io.nordstar.personahrm.person.dao.PersonDAO;
+import io.nordstar.personahrm.person.model.education.AcademiaBaseRec;
+import io.nordstar.personahrm.person.model.education.CertificationRec;
+import io.nordstar.personahrm.person.model.education.SkillRec;
 import io.nordstar.personahrm.person.model.person.PersonBaseRec;
 import io.nordstar.personahrm.person.model.person.PersonRec;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,10 @@ import java.util.List;
 public class PersonsServiceImpl implements PersonsService {
 
     @Autowired
-    private PersonDAO personsDAO;
+    private PersonDAO    personsDAO;
+
+    @Autowired
+    private EducationDAO educationDAO;
 
     @Override
     public void createPerson ( PersonRec personData ) {
@@ -21,7 +28,7 @@ public class PersonsServiceImpl implements PersonsService {
     }
 
     /**
-     *
+     * Retrieves all persons as List<PersonBaseRec>
      * @return
      */
     @Override
@@ -36,25 +43,33 @@ public class PersonsServiceImpl implements PersonsService {
     }
 
     /**
-     *
-     * @return
-     */
-    @Override
-    public List<PersonBaseRec> searchPersons ( ) {
-        return new ArrayList<PersonBaseRec> ( );
-    }
-
-    /**
-     *
+     * Retrieves a single person as PersonRec
      * @param personCode
      * @return
      */
     @Override
     public PersonRec retrievePersonByCode ( int personCode ) {
 
-        PersonRec person = personsDAO.retrievePersonByCode ( personCode );
+        PersonRec              person          = personsDAO.retrievePersonByCode      ( personCode               );
+
+        List<AcademiaBaseRec>  academia        = educationDAO.retrieveAcademicRecords ( person.getPersonCode ( ) );
+        List<CertificationRec> certifications  = educationDAO.retrieveCertifications  ( person.getPersonCode ( ) );
+        List<SkillRec>         skills          = educationDAO.retrieveSkills          ( person.getPersonCode ( ) );
+
+        person.setAcademia       ( academia       );
+        person.setCertifications ( certifications );
+        person.setSkills         ( skills         );
 
         return person;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public List<PersonBaseRec> searchPersons ( ) {
+        return new ArrayList<PersonBaseRec> ( );
     }
 
     @Override
